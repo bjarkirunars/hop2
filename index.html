@@ -7,49 +7,47 @@
   </head>
   <body>
     <main>
-
+      
       <div class="grid">
-
         <div class="row">
-          <div class="col col-12">
-            <h1>Myndbandaleigan</h1>
-          </div>
-        </div>
 
-        <div class="row">
-          <div class="col col-12">
-            <h1>Nýleg myndbönd</h1>
-          </div>
-        </div>
-
-        <div class="row myndbond">
-          <div class="col col-12 col-m-6 col-l-4">
-            <img src="img/play.svg" width="100" height="100">
+          <div class="col col-6">
+            <h1 class="video__heading">
+            </h1>
           </div>
         </div>
 
         <div class="row">
-          <div class="col col-12">
-            <h1>Kennslumyndbönd</h1>
+          <div class="col col-12 video__col">
+            <video class="video" src="">
+            </video>
           </div>
+
+          <div class="row"></div>
+            <div class="col col-12 video__option">
+              <img class="video__sign backward" src="img/back.svg">
+
+              <img class="video__sign play&pause" src="img/play.svg">
+
+              <img class="video__sign sound" src="img/mute.svg">
+
+              <img class="video__sign fullscreen" src="img/fullscreen.svg">
+
+              <img class="video__sign forward" src="img/next.svg">
+                
+            </div>
         </div>
 
         <div class="row">
-          <div class="col col-12">
-            <h1>Skemmtimyndbönd</h1>
+          <div class="col col-12 video__option">
+            <h2 class="video__tilbaka">Til baka</h2>
           </div>
         </div>
-
-        <div class="row myndbond">
-          <div class="col col-12 col-m-6 col-l-4">
-            <img src="img/next.svg" width="100" height="100">
-          </div>
-        </div>
-
       </div>
 
     </main>
 
-    <script src="script-compiled.js"></script>
+    <script src="video.js"></script>
+    <script type="text/javascript" src="videos.json"></script>
   </body>
 </html>

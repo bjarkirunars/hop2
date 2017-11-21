@@ -1,0 +1,27 @@
+.video {
+	width: 100%;
+	position: relative;
+
+	&__option {
+		display: flex;
+		flex-wrap: nowrap;
+		justify-content: center;
+	}
+
+	&__sign {
+
+		width: 5em;
+		height: 5em;
+		padding-left: 10px;
+		padding-right: 10px;
+
+		&Onvid {
+			position: absolute;
+		}
+
+	}
+
+	&__tilbaka{
+		color: white;
+	}
+}

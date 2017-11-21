@@ -1,3 +1,5 @@
+$max-width: 1200px;
+$gutter: 20px;
 
 html { /* stylelint-disable-line */
   box-sizing: border-box;
@@ -23,3 +25,5 @@ main { /* stylelint-disable-line */
 
 
 @import "scss/index";
+@import "scss/grid";
+@import "scss/video";
