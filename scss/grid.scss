@@ -32,14 +32,27 @@
     @include columns(4);
   }
 
-  &-sm {
-    @media (max-width: 599px) {
+  &-m {
+    @media (min-width: 600px) {
       &-12 {
         @include columns(12);
       }
 
       &-6 {
         @include columns(6);
+      }
+
+    }
+  }
+
+  &-l {
+    @media (min-width: 800px) {
+      &-12 {
+        @include columns(12);
+      }
+
+      &-4 {
+        @include columns(4);
       }
 
     }
