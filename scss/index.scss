@@ -8,30 +8,23 @@ main {
 h1 { /* stylelint-disable-line */
   text-align: left;
   font-size: auto;
-  color: #fff;
   padding-bottom: 10px;
-  flex-direction: column-reverse;
 }
 
-h2, p {
+h1, h2, p {
   color: #fff;
-}
-
-div {
-  display: block;
-  overflow: hidden;
-  text-overflow: clip;
 }
 
 img {
+  width: 100%;
 }
 
 .myndbond {
-  padding-bottom: 30px;
-  border-bottom: 1px solid #fff;
-  margin-bottom: 20px;
+  display: block;
+}
 
-  img {
-    width: 100%;
-  }
+.kafli {
+  padding-top: 30px;
+  border-top: 1px solid #fff;
+  margin-top: 20px;
 }
