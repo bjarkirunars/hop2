@@ -7,7 +7,8 @@ var bilnumer;
 var strengur;
 var json;
 var results = document.querySelector('.body');
-var div0, div1, div2, div3, div4, mynd, h1, h2, p1, i, j;
+var div0, div1, div2, div3, div4, link, mynd, h1, h2, p1, i, j;
+var videoSida = '/videos.html?id=';
 
 fetch(request).then(function (response) {
   if (response.status === 200) {
@@ -46,16 +47,20 @@ function addText(obj) {
     for (i = 0; i < obj.categories[j].videos.length; i++) {
       div3 = document.createElement('div');
       div4 = document.createElement('div');
+      link = document.createElement('a');
       mynd = document.createElement('img');
       h2 = document.createElement('h2');
       p1 = document.createElement('p');
       div3.appendChild(div4);
-      div4.appendChild(mynd);
+      div4.appendChild(link);
+      link.appendChild(mynd);
       div4.appendChild(h2);
       div4.appendChild(p1);
-      //div3.setAttribute('class', 'row myndbond');
       div3.setAttribute('class', 'col col-12 col-m-6 col-l-4');
+      link.setAttribute('href', videoSida + obj.videos[obj.categories[j].videos[i] - 1].id);
       mynd.src = obj.videos[obj.categories[j].videos[i] - 1].poster;
+      mynd.setAttribute('class', 'mynd');
+      mynd.setAttribute('id', obj.videos[obj.categories[j].videos[i] - 1].id);
       p1.appendChild(document.createTextNode(timiSidan(obj.videos[obj.categories[j].videos[i] - 1].created)));
       h2.appendChild(document.createTextNode(obj.videos[obj.categories[j].videos[i] - 1].title));
       div0.appendChild(div3);
@@ -77,5 +82,16 @@ function timiSidan(msek) {
     return 'Fyrir ' + Math.floor(timi / 1000 / 60 / 60 / 24) + ' dögum síðan';
   } else return 'Fyrir ' + Math.floor(timi / 1000 / 60 / 60) + ' sek síðan';
 }
+
+/*
+<a href="your landing page url">
+ <img src="your image url" />
+</a>
+
+    var element = document.querySelector('mynd');
+    element.addEventListener('click', function () {
+      console.log('Ýtt á takka!');
+    });
+*/
 
 //# sourceMappingURL=script-compiled.js.map
