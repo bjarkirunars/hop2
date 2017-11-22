@@ -6,7 +6,7 @@ var bilnumer;
   var json;
   var results = document.querySelector('.body');
   var div0, div1, div2, div3, div4, link, mynd, h1, h2, p1, i, j;
-  var videoSida = '/videos.html?id=';
+  var videoSida = '/video.html?id=';
 
 
 fetch(request)
