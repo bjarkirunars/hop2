@@ -5,7 +5,7 @@ var bilnumer;
   var strengur;
   var json;
   var results = document.querySelector('.body');
-  var div0, div1, div2, div3, div4, link, mynd, h1, h2, timinn, p1, i, j;
+  var div0, div1, div2, div3, div4, div5, link, mynd, h1, h2, timinn, p1, i, j;
   var videoSida = '/video.html?id=';
 
 
@@ -39,6 +39,7 @@ function addText(obj) {
   for(j=0; j<obj.categories.length; j++) {
     div1 = document.createElement('div');
     div2 = document.createElement('div');
+    div5 = document.createElement('div');
     h1 = document.createElement('h1');
     div2.appendChild(h1);
     div1.appendChild(div2);
@@ -46,8 +47,10 @@ function addText(obj) {
     div0.appendChild(div1);
     div1.setAttribute('class', 'row kafli');
     div2.setAttribute('class', 'col');
+    div5.setAttribute('class', 'row');
 
     for(i=0; i<obj.categories[j].videos.length; i++) {
+
       div3 = document.createElement('div');
       div4 = document.createElement('div');
       link = document.createElement('a');
@@ -58,12 +61,13 @@ function addText(obj) {
       div3.appendChild(div4);
       div4.appendChild(link);
       link.appendChild(mynd);
-      link.appendChild(timinn);
+      div4.appendChild(timinn);
       div4.appendChild(h2);
       div4.appendChild(p1);
+
       div3.setAttribute('class', 'col col-12 col-m-6 col-l-4');
       link.setAttribute('href', videoSida + obj.videos[obj.categories[j].videos[i]-1].id)
-      link.setAttribute('class', 'container');
+      div4.setAttribute('class', 'container');
       mynd.src = obj.videos[obj.categories[j].videos[i]-1].poster;
       mynd.setAttribute('class', 'mynd');
       timinn.setAttribute('class', 'timinn');
@@ -71,8 +75,10 @@ function addText(obj) {
       p1.appendChild(document.createTextNode(timiSidan(obj.videos[obj.categories[j].videos[i]-1].created)));
       h2.appendChild(document.createTextNode(obj.videos[obj.categories[j].videos[i]-1].title));
       timinn.appendChild(document.createTextNode(lengdMyndbands(obj.videos[obj.categories[j].videos[i]-1].duration)));
-      div0.appendChild(div3);
+      div5.appendChild(div3);
     }
+    div0.appendChild(div5);
+
   }
   results.appendChild(div0);
 }
