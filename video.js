@@ -79,7 +79,12 @@ function settingsForEvents() {
 		}
 	});
 
-
+	var overlay = document.querySelector('.video__overlay');
+	overlaySign = overlay.querySelector('img');
+	console.log(overlaySign);
+	overlaySign.addEventListener('click', function() {
+		console.log('fagit');
+	});
 }
 
 function playOrPause() {
