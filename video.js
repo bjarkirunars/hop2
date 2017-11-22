@@ -17,7 +17,6 @@ function setUp() {
 		    console.error(error);
 		  });
 
-
 };
 
 function resolve(response){
@@ -79,12 +78,12 @@ function settingsForEvents() {
 		}
 	});
 
+	// her
 	var overlay = document.querySelector('.video__overlay');
-	overlaySign = overlay.querySelector('img');
-	console.log(overlaySign);
+	var overlaySign = overlay.querySelector('img');
 	overlaySign.addEventListener('click', function() {
-		console.log('fagit');
-	});
+		console.log('virkar?');
+	})
 }
 
 function playOrPause() {
