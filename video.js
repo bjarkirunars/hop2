@@ -68,14 +68,18 @@ function settingsForEvents() {
 			e.addEventListener('click', fullscreen);
 		}
 		else if(classList.contains("backward")) {
-			e.addEventListener('click', backward);
+			e.addEventListener('click', function(){
+				video.currentTime = video.currentTime - 3;
+			});
 		}
 		else if(classList.contains("forward")) {
-			e.addEventListener('click', forward);
+			e.addEventListener('click', function(){
+				video.currentTime = video.currentTime + 3;
+			});
 		}
 	});
 
-	
+
 }
 
 function playOrPause() {
@@ -83,11 +87,12 @@ function playOrPause() {
 	if(video.paused) {
 		video.play();
 		this.src = "img/pause.svg";
-
+		removeOverlay();
 	}
 	else {
 		video.pause();
 		this.src = "img/play.svg";
+		setOverlay();
 	}
 
 }
@@ -119,13 +124,25 @@ function fullscreen() {
 	}
 }
 
-function backward() {
-
-	video.currentTime = video.currentTime - 3;
+function removeOverlay() {
+	var overlay = document.querySelector('.video__overlay');
+	var sign = overlay.querySelector('img');
+	overlay.classList.remove('video__overlay');
+	overlay.classList.add('video__notoverlay');
+	overlay.removeChild(sign);
 }
 
-function forward() {
+function setOverlay() {
 
-	video.currentTime = video.currentTime + 3;
+	var overlay = document.querySelector('.video__notoverlay');
+	overlay.classList.remove('video__notoverlay');
+	overlay.classList.add('video__overlay');
+
+	var sign = document.createElement('img');
+	sign.src = "img/play.svg";
+	sign.classList.add('video__overlay__play');
+	sign.classList.add('video__sign');
+
+	overlay.insertBefore(sign, overlay.firstChild);
 
 }
