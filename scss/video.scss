@@ -1,20 +1,26 @@
+
 .video {
 	width: 100%;
 	display: block;
+	margin-bottom: 10px;
 
 	&__option {
 		display: flex;
 		flex-wrap: nowrap;
 		justify-content: center;
+		height: max-content;
 	}
 
 	&__sign {
 
 		width: 5em;
 		height: 5em;
-		padding-left: 10px;
-		padding-right: 10px;
+		padding: 10px 10px 10px 10px;
 
+		&__border{
+			border: 2px solid rgb(136,136,136);
+		}
+		
 	}
 
 	&__tilbaka{
@@ -27,16 +33,16 @@
 
 	&__overlay {
 		position: relative;
+		pointer-events: none;
 
 		&__play{
-
-			height: 100%;
+			pointer-events: all;
 			position: absolute;
-			left: 0; 
-			right: 0; 
-			margin-left: auto; 
+			left:0;
+			right: 0;
+			margin-left: auto;
 			margin-right: auto;
-
+			top: calc(50% - 2.5em);
 		}
 	}
 
@@ -50,6 +56,8 @@
 		bottom: 0;
 		left: 0;
 	}
+
+
 
 
 }

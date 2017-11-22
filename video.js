@@ -40,6 +40,7 @@ function resolve(response){
 
 	 videoElement = document.querySelector('.video');
 	 videoElement.setAttribute("src", video);
+	 videoElement.currentTime = 2.4;
 
 	 settingsForEvents();
 
@@ -57,7 +58,7 @@ function settingsForEvents() {
 
 		var classList = e.classList;
 
-		if(classList.contains("play&pause")) {
+		if(classList.contains("playNpause")) {
 			e.addEventListener('click', playOrPause);
 		}
 		else if(classList.contains("sound")){
@@ -69,34 +70,41 @@ function settingsForEvents() {
 		else if(classList.contains("backward")) {
 			e.addEventListener('click', function(){
 				video.currentTime = video.currentTime - 3;
+				removeAllBorders();
+				this.classList.add('video__sign__border');
 			});
 		}
 		else if(classList.contains("forward")) {
 			e.addEventListener('click', function(){
 				video.currentTime = video.currentTime + 3;
+				removeAllBorders();
+				this.classList.add('video__sign__border');
 			});
 		}
 	});
 
-	// her
 	var overlay = document.querySelector('.video__overlay');
 	var overlaySign = overlay.querySelector('img');
-	overlaySign.addEventListener('click', function() {
-		console.log('virkar?');
-	})
+	overlaySign.addEventListener('click', playOrPause);
 }
 
 function playOrPause() {
-	
+	var sign = document.querySelector('.playNpause');
+
 	if(video.paused) {
 		video.play();
-		this.src = "img/pause.svg";
+		sign.src = "img/pause.svg";
 		removeOverlay();
 	}
 	else {
 		video.pause();
-		this.src = "img/play.svg";
+		sign.src = "img/play.svg";
 		setOverlay();
+	}
+
+	if(this.classList.contains("playNpause")) {
+		removeAllBorders();
+		this.classList.add('video__sign__border');
 	}
 
 }
@@ -110,8 +118,11 @@ function muteOrUnmute() {
 	else {
 		video.muted = true;
 		this.src = "img/unmute.svg";
-
 	}
+
+	removeAllBorders();
+	this.classList.add('video__sign__border');
+
 
 }
 
@@ -146,7 +157,17 @@ function setOverlay() {
 	sign.src = "img/play.svg";
 	sign.classList.add('video__overlay__play');
 	sign.classList.add('video__sign');
+	sign.addEventListener('click', playOrPause);
 
 	overlay.insertBefore(sign, overlay.firstChild);
 
+}
+
+function removeAllBorders() {
+
+	var videoSigns = document.querySelectorAll('.video__sign')
+	videoSigns.forEach(function(e) {
+		e.classList.remove('video__sign__border');
+	});
+	
 }
