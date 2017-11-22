@@ -15,6 +15,10 @@ h1, h2, p {
   color: #fff;
 }
 
+h2 {
+  height: auto;
+}
+
 img {
   width: 100%;
 }
@@ -27,4 +31,17 @@ img {
   padding-top: 30px;
   border-top: 1px solid #fff;
   margin-top: 20px;
+}
+
+.container {
+  position: relative;
+  text-align: center;
+  color: white;
+}
+
+.timinn {
+    position: absolute;
+    left: 80%;
+    bottom: 90%;
+    background-color: #333;
 }

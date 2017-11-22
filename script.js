@@ -5,7 +5,7 @@ var bilnumer;
   var strengur;
   var json;
   var results = document.querySelector('.body');
-  var div0, div1, div2, div3, div4, link, mynd, h1, h2, p1, i, j;
+  var div0, div1, div2, div3, div4, link, mynd, h1, h2, timinn, p1, i, j;
   var videoSida = '/video.html?id=';
 
 
@@ -54,18 +54,23 @@ function addText(obj) {
       mynd = document.createElement('img');
       h2 = document.createElement('h2');
       p1 = document.createElement('p');
+      timinn = document.createElement('div');
       div3.appendChild(div4);
       div4.appendChild(link);
       link.appendChild(mynd);
+      link.appendChild(timinn);
       div4.appendChild(h2);
       div4.appendChild(p1);
       div3.setAttribute('class', 'col col-12 col-m-6 col-l-4');
       link.setAttribute('href', videoSida + obj.videos[obj.categories[j].videos[i]-1].id)
+      link.setAttribute('class', 'container');
       mynd.src = obj.videos[obj.categories[j].videos[i]-1].poster;
       mynd.setAttribute('class', 'mynd');
+      timinn.setAttribute('class', 'timinn');
       mynd.setAttribute('id', obj.videos[obj.categories[j].videos[i]-1].id);
       p1.appendChild(document.createTextNode(timiSidan(obj.videos[obj.categories[j].videos[i]-1].created)));
       h2.appendChild(document.createTextNode(obj.videos[obj.categories[j].videos[i]-1].title));
+      timinn.appendChild(document.createTextNode(lengdMyndbands(obj.videos[obj.categories[j].videos[i]-1].duration)));
       div0.appendChild(div3);
     }
   }
@@ -84,17 +89,18 @@ function timiSidan(msek) {
   } else if (Math.floor(timi/1000/60/60/24)>0){
     return ('Fyrir ' + Math.floor(timi/1000/60/60/24) + ' dögum síðan');
   } else return ('Fyrir ' + Math.floor(timi/1000/60/60) + ' sek síðan');
-
 }
 
 
-/*
-<a href="your landing page url">
- <img src="your image url" />
-</a>
-
-    var element = document.querySelector('mynd');
-    element.addEventListener('click', function () {
-      console.log('Ýtt á takka!');
-    });
-*/
+function lengdMyndbands(sek) {
+  var min = Math.floor(sek/60);
+  var sek = Math.floor(sek%60);
+  if (sek<10) {
+    sek = '0'+sek;
+  }
+  if (min < 10){
+    min = '0'+min;
+  }
+  var skil = min + ':' + sek;
+  return skil;
+}
