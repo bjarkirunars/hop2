@@ -1,39 +1,64 @@
 'use strict';
 
 var request = new Request('/videos.json', { method: 'GET' });
-var json;
-
-var bilnumer;
-var strengur;
-var json;
+var min = void 0;
+var sek = void 0;
+var skil = void 0;
 var results = document.querySelector('.body');
-var div0, div1, div2, div3, div4, div5, link, mynd, h1, h2, timinn, p1, i, j;
+var div0 = void 0;
+var div1 = void 0;
+var div2 = void 0;
+var div3 = void 0;
+var div4 = void 0;
+var div5 = void 0;
+var link = void 0;
+var mynd = void 0;
+var h1 = void 0;
+var h2 = void 0;
+var timinn = void 0;
+var p1 = void 0;
+var i = void 0;
+var j = void 0;
+var texti = void 0;
 var videoSida = '/video.html?id=';
 
-fetch(request).then(function (response) {
-  if (response.status === 200) {
-    return response.json();
+function timiSidan(msek) {
+  var d = new Date();
+  var timi = d - msek;
+  if (Math.floor(timi / 1000 / 60 / 60 / 24 / 365) > 0) {
+    texti = 'Fyrir ' + Math.floor(timi / 1000 / 60 / 60 / 24 / 365) + ' \xE1rum s\xED\xF0an';
+    return texti;
+  } else if (Math.floor(timi / 1000 / 60 / 60 / 24 / 30) > 0) {
+    texti = 'Fyrir ' + Math.floor(timi / 1000 / 60 / 60 / 24 / 30) + ' m\xE1nu\xF0um s\xED\xF0an';
+    return texti;
+  } else if (Math.floor(timi / 1000 / 60 / 60 / 24 / 7) > 0) {
+    texti = 'Fyrir ' + Math.floor(timi / 1000 / 60 / 60 / 24 / 7) + ' vikum s\xED\xF0an';
+    return texti;
+  } else if (Math.floor(timi / 1000 / 60 / 60 / 24) > 0) {
+    texti = 'Fyrir ' + Math.floor(timi / 1000 / 60 / 60 / 24) + ' d\xF6gum s\xED\xF0an';
+    return texti;
   }
-  throw new Error('Something went wrong on api server!');
-}).then(function (response) {
-  console.debug(response);
-  json = response;
-  prenta(json);
-  addText(json);
-}).catch(function (error) {
-  console.error(error);
-});
+  texti = 'Fyrir ' + Math.floor(timi / 1000 / 60 / 60) + ' sek s\xED\xF0an';
+  return texti;
+}
 
-function prenta(strengur) {
-  console.log(strengur);
-  console.log(strengur.videos[0]);
-  console.log(strengur.categories[0].videos[0]);
+function lengdMyndbands(seconds) {
+  min = Math.floor(seconds / 60);
+  sek = Math.floor(seconds % 60);
+  if (sek < 10) {
+    sek = '0' + sek;
+  }
+  if (min < 10) {
+    min = '0' + min;
+  }
+  skil = min + ':' + sek;
+  return skil;
 }
 
 function addText(obj) {
   div0 = document.createElement('div');
 
-  for (j = 0; j < obj.categories.length; j++) {
+  for (j = 0; j < obj.categories.length; j += 1) {
     div1 = document.createElement('div');
     div2 = document.createElement('div');
     div5 = document.createElement('div');
@@ -46,8 +71,7 @@ function addText(obj) {
     div2.setAttribute('class', 'col');
     div5.setAttribute('class', 'row');
 
-    for (i = 0; i < obj.categories[j].videos.length; i++) {
-
+    for (i = 0; i < obj.categories[j].videos.length; i += 1) {
       div3 = document.createElement('div');
       div4 = document.createElement('div');
       link = document.createElement('a');
@@ -69,9 +93,11 @@ function addText(obj) {
       mynd.setAttribute('class', 'mynd');
       timinn.setAttribute('class', 'timinn');
       mynd.setAttribute('id', obj.videos[obj.categories[j].videos[i] - 1].id);
-      p1.appendChild(document.createTextNode(timiSidan(obj.videos[obj.categories[j].videos[i] - 1].created)));
+      texti = timiSidan(obj.videos[obj.categories[j].videos[i] - 1].created);
+      p1.appendChild(document.createTextNode(texti));
       h2.appendChild(document.createTextNode(obj.videos[obj.categories[j].videos[i] - 1].title));
-      timinn.appendChild(document.createTextNode(lengdMyndbands(obj.videos[obj.categories[j].videos[i] - 1].duration)));
+      texti = lengdMyndbands(obj.videos[obj.categories[j].videos[i] - 1].duration);
+      timinn.appendChild(document.createTextNode(texti));
       div5.appendChild(div3);
     }
     div0.appendChild(div5);
@@ -79,31 +105,17 @@ function addText(obj) {
   results.appendChild(div0);
 }
 
-function timiSidan(msek) {
-  var d = new Date();
-  var timi = d - msek;
-  if (Math.floor(timi / 1000 / 60 / 60 / 24 / 365) > 0) {
-    return 'Fyrir ' + Math.floor(timi / 1000 / 60 / 60 / 24 / 365) + ' árum síðan';
-  } else if (Math.floor(timi / 1000 / 60 / 60 / 24 / 30) > 0) {
-    return 'Fyrir ' + Math.floor(timi / 1000 / 60 / 60 / 24 / 30) + ' mánuðum síðan';
-  } else if (Math.floor(timi / 1000 / 60 / 60 / 24 / 7) > 0) {
-    return 'Fyrir ' + Math.floor(timi / 1000 / 60 / 60 / 24 / 7) + ' vikum síðan';
-  } else if (Math.floor(timi / 1000 / 60 / 60 / 24) > 0) {
-    return 'Fyrir ' + Math.floor(timi / 1000 / 60 / 60 / 24) + ' dögum síðan';
-  } else return 'Fyrir ' + Math.floor(timi / 1000 / 60 / 60) + ' sek síðan';
-}
-
-function lengdMyndbands(sek) {
-  var min = Math.floor(sek / 60);
-  var sek = Math.floor(sek % 60);
-  if (sek < 10) {
-    sek = '0' + sek;
+fetch(request).then(function (response) {
+  if (response.status === 200) {
+    return response.json();
   }
-  if (min < 10) {
-    min = '0' + min;
-  }
-  var skil = min + ':' + sek;
-  return skil;
-}
+  throw new Error('Something went wrong on api server!');
+}).then(function (response) {
+  console.debug(response);
+  var json = response;
+  addText(json);
+}).catch(function (error) {
+  console.error(error);
+});
 
 //# sourceMappingURL=script-compiled.js.map
