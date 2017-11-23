@@ -16,7 +16,9 @@ function setOverlay() {
   sign.src = 'img/play.svg';
   sign.classList.add('video__overlay__play');
   sign.classList.add('video__sign');
+  /* eslint-disable */
   sign.addEventListener('click', playOrPause);
+  /* eslint-enable */
   overlay.insertBefore(sign, overlay.firstChild);
 }
 
