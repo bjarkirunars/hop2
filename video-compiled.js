@@ -10,10 +10,9 @@ function removeOverlay() {
 
 function setOverlay() {
   var overlay = document.querySelector('.video__notoverlay');
-  var sign;
+  var sign = document.createElement('img');
   overlay.classList.remove('video__notoverlay');
   overlay.classList.add('video__overlay');
-  sign = document.createElement('img');
   sign.src = 'img/play.svg';
   sign.classList.add('video__overlay__play');
   sign.classList.add('video__sign');
@@ -29,6 +28,7 @@ function removeAllBorders() {
 }
 
 function playOrPause() {
+  var video = document.querySelector('.video');
   var sign = document.querySelector('.playNpause');
   if (video.paused) {
     video.play();
@@ -39,26 +39,27 @@ function playOrPause() {
     sign.src = 'img/play.svg';
     setOverlay();
   }
-
-  if (this.classList.contains("playNpause")) {
+  if (this.classList.contains('playNpause')) {
     removeAllBorders();
     this.classList.add('video__sign__border');
   }
 }
 
 function muteOrUnmute() {
+  var video = document.querySelector('.video');
   if (video.muted) {
     video.muted = false;
-    this.src = "img/mute.svg";
+    this.src = 'img/mute.svg';
   } else {
     video.muted = true;
-    this.src = "img/unmute.svg";
+    this.src = 'img/unmute.svg';
   }
   removeAllBorders();
   this.classList.add('video__sign__border');
 }
 
 function fullscreen() {
+  var video = document.querySelector('.video');
   if (video.requestFullscreen) {
     video.requestFullscreen();
   } else if (video.mozRequestFullScreen) {
@@ -71,26 +72,29 @@ function fullscreen() {
 }
 
 function settingsForEvents() {
+  var _this = this;
+
+  var video = document.querySelector('.video');
   var videoOptions = document.querySelectorAll('.video__sign');
   videoOptions.forEach(function (e) {
-    var classList = e.classList;
-    if (classList.contains('playNpause')) {
+    var classList = e.classList[1];
+    if (classList === 'playNpause') {
       e.addEventListener('click', playOrPause);
-    } else if (classList.contains('sound')) {
+    } else if (classList === 'sound') {
       e.addEventListener('click', muteOrUnmute);
-    } else if (classList.contains('fullscreen')) {
+    } else if (classList === 'fullscreen') {
       e.addEventListener('click', fullscreen);
-    } else if (classList.contains('backward')) {
+    } else if (classList === 'backward') {
       e.addEventListener('click', function () {
-        video.currentTime = video.currentTime - 3;
+        video.currentTime -= 3;
         removeAllBorders();
-        this.classList.add('video__sign__border');
+        _this.classList.add('video__sign__border');
       });
-    } else if (classList.contains('forward')) {
+    } else if (classList === 'forward') {
       e.addEventListener('click', function () {
-        video.currentTime = video.currentTime + 3;
+        video.currentTime += 3;
         removeAllBorders();
-        this.classList.add('video__sign__border');
+        _this.classList.add('video__sign__border');
       });
     }
   });
@@ -102,11 +106,10 @@ function settingsForEvents() {
 function resolve(response) {
   var url = document.URL;
   var id = url.match('/?id=(.*)');
-  var eid;
-  var video;
-  var title;
-  var videoElement;
-  var node;
+  var eid = void 0;
+  var video = void 0;
+  var title = void 0;
+  var videoElement = void 0;
   response.videos.forEach(function (e) {
     eid = e.id.toString();
     if (eid === id[1]) {
@@ -114,14 +117,14 @@ function resolve(response) {
       title = e.title.toString();
     }
   });
+  var node = document.createTextNode(title);
   videoElement = document.querySelector('.video__heading');
-  node = document.createTextNode(title);
   videoElement.appendChild(node);
   videoElement = document.querySelector('.video');
   videoElement.setAttribute('src', video);
   videoElement.currentTime = 2.4;
   settingsForEvents();
-};
+}
 
 function setUp() {
   var request = new Request('/videos.json', { method: 'GET' });
@@ -136,9 +139,8 @@ function setUp() {
   }).catch(function (error) {
     console.error(error);
   });
-};
+}
 
 document.addEventListener('DOMContentLoaded', setUp());
-var video = document.querySelector('.video');
 
 //# sourceMappingURL=video-compiled.js.map
