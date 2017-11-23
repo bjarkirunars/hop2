@@ -126,7 +126,7 @@ function removeBuffering() {
 
 function resolve(response) {
   const url = document.URL;
-  const id = url.match('/?id=(.*)');
+  const id = url.match('./?id=(.*)');
   const grid = document.querySelector('.main__grid');
   let eid;
   let video;
@@ -167,7 +167,7 @@ function buffering() {
 }
 
 function setUp() {
-  const request = new Request('/videos.json', { method: 'GET' });
+  const request = new Request('./videos.json', { method: 'GET' });
   fetch(request)
     .then((response) => {
       if (response.status === 200) {

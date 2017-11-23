@@ -128,7 +128,7 @@ function removeBuffering() {
 
 function resolve(response) {
   var url = document.URL;
-  var id = url.match('/?id=(.*)');
+  var id = url.match('./?id=(.*)');
   var grid = document.querySelector('.main__grid');
   var eid = void 0;
   var video = void 0;
@@ -169,7 +169,7 @@ function buffering() {
 }
 
 function setUp() {
-  var request = new Request('/videos.json', { method: 'GET' });
+  var request = new Request('./videos.json', { method: 'GET' });
   fetch(request).then(function (response) {
     if (response.status === 200) {
       return response.json();
