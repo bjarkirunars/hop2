@@ -22,6 +22,21 @@ var j = void 0;
 var texti = void 0;
 var videoSida = '/video.html?id=';
 
+function removeBuffering() {
+  var buff = document.querySelector('.buff');
+  var main = document.querySelector('main');
+  main.removeChild(buff);
+}
+
+function buffering() {
+  var main = document.querySelector('main');
+  var buff = document.createElement('h1');
+  var textNode = document.createTextNode('Hleð inn gögn....');
+  buff.appendChild(textNode);
+  buff.classList.add('buff');
+  main.appendChild(buff);
+}
+
 function timiSidan(msek) {
   var d = new Date();
   var timi = d - msek;
@@ -103,19 +118,25 @@ function addText(obj) {
     div0.appendChild(div5);
   }
   results.appendChild(div0);
+  var grid = document.querySelector('.body');
+  removeBuffering();
+  grid.hidden = false;
 }
-
-fetch(request).then(function (response) {
-  if (response.status === 200) {
-    return response.json();
-  }
-  throw new Error('Something went wrong on api server!');
-}).then(function (response) {
-  console.debug(response);
-  var json = response;
-  addText(json);
-}).catch(function (error) {
-  console.error(error);
-});
+function setUp() {
+  fetch(request).then(function (response) {
+    if (response.status === 200) {
+      return response.json();
+    }
+    throw new Error('Something went wrong on api server!');
+  }).then(function (response) {
+    console.debug(response);
+    var json = response;
+    addText(json);
+  }).catch(function (error) {
+    console.error(error);
+  });
+}
+buffering();
+document.addEventListener('DOMContentLoaded', setUp);
 
 //# sourceMappingURL=script-compiled.js.map

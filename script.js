@@ -20,6 +20,21 @@ let j;
 let texti;
 const videoSida = '/video.html?id=';
 
+function removeBuffering() {
+  const buff = document.querySelector('.buff');
+  const main = document.querySelector('main');
+  main.removeChild(buff);
+}
+
+function buffering() {
+  const main = document.querySelector('main');
+  const buff = document.createElement('h1');
+  const textNode = document.createTextNode('Hleð inn gögn....');
+  buff.appendChild(textNode);
+  buff.classList.add('buff');
+  main.appendChild(buff);
+}
+
 function timiSidan(msek) {
   const d = new Date();
   const timi = d - msek;
@@ -101,20 +116,26 @@ function addText(obj) {
     div0.appendChild(div5);
   }
   results.appendChild(div0);
+  const grid = document.querySelector('.body');
+  removeBuffering();
+  grid.hidden = false;
 }
-
-fetch(request)
-  .then((response) => {
-    if (response.status === 200) {
-      return response.json();
-    }
-    throw new Error('Something went wrong on api server!');
-  })
-  .then((response) => {
-    console.debug(response);
-    const json = response;
-    addText(json);
-  })
-  .catch((error) => {
-    console.error(error);
-  });
+function setUp() {
+  fetch(request)
+    .then((response) => {
+      if (response.status === 200) {
+        return response.json();
+      }
+      throw new Error('Something went wrong on api server!');
+    })
+    .then((response) => {
+      console.debug(response);
+      const json = response;
+      addText(json);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
+buffering();
+document.addEventListener('DOMContentLoaded', setUp);

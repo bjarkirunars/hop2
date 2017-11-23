@@ -143,6 +143,7 @@ function resolve(response) {
   });
 
   if (!video) {
+    removeBuffering();
     villuskilabod();
     return;
   }
