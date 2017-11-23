@@ -1,4 +1,4 @@
-const request = new Request('/videos.json', { method: 'GET' });
+const request = new Request('./videos.json', { method: 'GET' });
 let min;
 let sek;
 let skil;
@@ -18,7 +18,7 @@ let p1;
 let i;
 let j;
 let texti;
-const videoSida = '/video.html?id=';
+const videoSida = './video.html?id=';
 
 function removeBuffering() {
   const buff = document.querySelector('.buff');

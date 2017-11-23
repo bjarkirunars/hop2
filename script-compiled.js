@@ -1,6 +1,6 @@
 'use strict';
 
-var request = new Request('/videos.json', { method: 'GET' });
+var request = new Request('./videos.json', { method: 'GET' });
 var min = void 0;
 var sek = void 0;
 var skil = void 0;
@@ -20,7 +20,7 @@ var p1 = void 0;
 var i = void 0;
 var j = void 0;
 var texti = void 0;
-var videoSida = '/video.html?id=';
+var videoSida = './video.html?id=';
 
 function removeBuffering() {
   var buff = document.querySelector('.buff');
