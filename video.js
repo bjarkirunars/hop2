@@ -104,9 +104,30 @@ function settingsForEvents() {
   overlaySign.addEventListener('click', playOrPause);
 }
 
+function villuskilabod() {
+  const grid = document.querySelector('.main__grid');
+  const main = document.querySelector('main');
+  const h1 = document.createElement('h1');
+  const h2 = document.createElement('h2');
+  let textNode = document.createTextNode('error');
+  grid.hidden = true;
+  h1.appendChild(textNode);
+  main.appendChild(h1);
+  textNode = document.createTextNode('Myndband fannst ekki');
+  h2.appendChild(textNode);
+  main.appendChild(h2);
+}
+
+function removeBuffering() {
+  const buff = document.querySelector('.buff');
+  const main = document.querySelector('main');
+  main.removeChild(buff);
+}
+
 function resolve(response) {
   const url = document.URL;
   const id = url.match('/?id=(.*)');
+  const grid = document.querySelector('.main__grid');
   let eid;
   let video;
   let title;
@@ -120,20 +141,9 @@ function resolve(response) {
   });
 
   if (!video) {
-    const grid = document.querySelector('.main__grid');
-    const main = document.querySelector('main');
-    const h1 = document.createElement('h1');
-    const h2 = document.createElement('h2');
-    let textNode = document.createTextNode('error');
-    grid.hidden = true;
-    h1.appendChild(textNode);
-    main.appendChild(h1);
-    textNode = document.createTextNode('Myndband fannst ekki');
-    h2.appendChild(textNode);
-    main.appendChild(h2);
+    villuskilabod();
     return;
   }
-
   const node = document.createTextNode(title);
   videoElement = document.querySelector('.video__heading');
   videoElement.appendChild(node);
@@ -141,7 +151,18 @@ function resolve(response) {
   videoElement.setAttribute('src', video);
   videoElement.currentTime = 2.4;
   videoElement.addEventListener('ended', setOverlay);
+  removeBuffering();
+  grid.hidden = false;
   settingsForEvents();
+}
+
+function buffering() {
+  const main = document.querySelector('main');
+  const buff = document.createElement('h1');
+  const textNode = document.createTextNode('Hleð inn gögn....');
+  buff.appendChild(textNode);
+  buff.classList.add('buff');
+  main.appendChild(buff);
 }
 
 function setUp() {
@@ -162,5 +183,5 @@ function setUp() {
       console.error(error);
     });
 }
-
-document.addEventListener('DOMContentLoaded', setUp());
+buffering();
+document.addEventListener('DOMContentLoaded', setUp);
