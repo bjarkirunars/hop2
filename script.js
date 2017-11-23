@@ -104,17 +104,17 @@ function addText(obj) {
 }
 
 fetch(request)
-  .then(function (response) {
+  .then((response) => {
     if (response.status === 200) {
       return response.json();
     }
     throw new Error('Something went wrong on api server!');
   })
-  .then(function (response) {
+  .then((response) => {
     console.debug(response);
     const json = response;
     addText(json);
   })
-  .catch(function (error) {
+  .catch((error) => {
     console.error(error);
   });
