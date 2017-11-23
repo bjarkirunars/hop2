@@ -1,14 +1,16 @@
 function removeOverlay() {
   const overlay = document.querySelector('.video__overlay');
-  const sign = overlay.querySelector('img');
+  let sign = overlay.querySelector('img');
   overlay.classList.remove('video__overlay');
   overlay.classList.add('video__notoverlay');
   overlay.removeChild(sign);
+  sign = document.querySelector('.playNpause');
+  sign.src = 'img/pause.svg';
 }
 
 function setOverlay() {
   const overlay = document.querySelector('.video__notoverlay');
-  const sign = document.createElement('img');
+  let sign = document.createElement('img');
   overlay.classList.remove('video__notoverlay');
   overlay.classList.add('video__overlay');
   sign.src = 'img/play.svg';
@@ -18,6 +20,8 @@ function setOverlay() {
   sign.addEventListener('click', playOrPause);
   /* eslint-enable */
   overlay.insertBefore(sign, overlay.firstChild);
+  sign = document.querySelector('.playNpause');
+  sign.src = 'img/play.svg';
 }
 
 function removeAllBorders() {
@@ -29,14 +33,11 @@ function removeAllBorders() {
 
 function playOrPause() {
   const video = document.querySelector('.video');
-  const sign = document.querySelector('.playNpause');
   if (video.paused) {
     video.play();
-    sign.src = 'img/pause.svg';
     removeOverlay();
   } else {
     video.pause();
-    sign.src = 'img/play.svg';
     setOverlay();
   }
   if (this.classList.contains('playNpause')) {
@@ -71,8 +72,18 @@ function fullscreen() {
   }
 }
 
-function settingsForEvents() {
+function backOrForward() {
   const video = document.querySelector('.video');
+  if (this.classList[1] === 'backward') {
+    video.currentTime -= 3;
+  } else {
+    video.currentTime += 3;
+  }
+  removeAllBorders();
+  this.classList.add('video__sign__border');
+}
+
+function settingsForEvents() {
   const videoOptions = document.querySelectorAll('.video__sign');
   videoOptions.forEach((e) => {
     const classList = e.classList[1];
@@ -83,17 +94,9 @@ function settingsForEvents() {
     } else if (classList === 'fullscreen') {
       e.addEventListener('click', fullscreen);
     } else if (classList === 'backward') {
-      e.addEventListener('click', () => {
-        video.currentTime -= 3;
-        removeAllBorders();
-        this.classList.add('video__sign__border');
-      });
+      e.addEventListener('click', backOrForward);
     } else if (classList === 'forward') {
-      e.addEventListener('click', () => {
-        video.currentTime += 3;
-        removeAllBorders();
-        this.classList.add('video__sign__border');
-      });
+      e.addEventListener('click', backOrForward);
     }
   });
   const overlay = document.querySelector('.video__overlay');
@@ -115,12 +118,29 @@ function resolve(response) {
       title = e.title.toString();
     }
   });
+
+  if (!video) {
+    const grid = document.querySelector('.main__grid');
+    const main = document.querySelector('main');
+    const h1 = document.createElement('h1');
+    const h2 = document.createElement('h2');
+    let textNode = document.createTextNode('error');
+    grid.hidden = true;
+    h1.appendChild(textNode);
+    main.appendChild(h1);
+    textNode = document.createTextNode('Myndband fannst ekki');
+    h2.appendChild(textNode);
+    main.appendChild(h2);
+    return;
+  }
+
   const node = document.createTextNode(title);
   videoElement = document.querySelector('.video__heading');
   videoElement.appendChild(node);
   videoElement = document.querySelector('.video');
   videoElement.setAttribute('src', video);
   videoElement.currentTime = 2.4;
+  videoElement.addEventListener('ended', setOverlay);
   settingsForEvents();
 }
 
@@ -131,6 +151,7 @@ function setUp() {
       if (response.status === 200) {
         return response.json();
       }
+
       throw new Error('Something went wrong on api server!');
     })
     .then((response) => {
