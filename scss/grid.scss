@@ -1,4 +1,5 @@
 $gutter: 20px;
+
 .row {
   display: flex;
   flex-wrap: wrap;
@@ -14,9 +15,9 @@ $gutter: 20px;
 }
 
 .col {
+  display: inline-block;
   padding-right: $gutter / 2;
   padding-left: $gutter / 2;
-  display: inline-block; 
 
   &-12 {
     @include columns(12);
